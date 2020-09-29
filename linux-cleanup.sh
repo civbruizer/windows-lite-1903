@@ -8,8 +8,8 @@ echo "║ This script comes without any warranty.           ║"
 echo "║ If your computer no longer boots, explodes, or    ║"
 echo "║ divides by zero, you are the only one responsible ║"
 echo "╟╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╢"
-echo "║ This script only works on Debian based distros.   ║"
-echo "║ An Ubuntu 16.04/18.04 Live ISO is recommended.    ║"
+echo "║ This script only works on Gentoo based distros.   ║"
+echo "║ Nothing  is recommended, if it works it works	  ║"
 echo "╚═══════════════════════════════════════════════════╝"
 echo ""
 read -p "To continue press [ENTER], or Ctrl-C to exit"
@@ -23,18 +23,18 @@ title_bar() {
 
 # prompts to install git and 7zip if not already installed
 title_bar
-sudo apt update
+sudo emerge -auDN @world
 PKG_OK=$(dpkg-query -W --showformat='${Status}\n' git|grep "install ok installed")
 echo "Checking for git: $PKG_OK"
 if [ "" == "$PKG_OK" ]; then
 	echo "curl not found, prompting to install git..."
-	sudo apt-get -y install git
+	sudo emerge -a dev-vcs/git
 fi
 PKG_OK=$(dpkg-query -W --showformat='${Status}\n' p7zip-full|grep "install ok installed")
 echo "Checking for 7zip: $PKG_OK"
 if [ "" == "$PKG_OK" ]; then
 	echo "curl not found, prompting to install 7zip..."
-	sudo apt-get -y install p7zip-full
+	sudo emerge -a app-arch/p7zip
 fi
 
 # prompts to install fzf if not already installed
